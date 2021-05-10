@@ -43,7 +43,7 @@ static void uart0_handler(void *arg){
 
     uint8_t *data = (uint8_t *) malloc(BUF_SIZE);
     while (1) {
-        int len = uart_read_bytes(UART_NUM_0, data, BUF_SIZE,1/portTICK_RATE_MS);
+        int len = uart_read_bytes(UART_NUM_0, data, BUF_SIZE,0);
 
         uart_write_bytes(UART_NUM_2, (const char *) data, len);
 
@@ -54,7 +54,7 @@ static void uart2_handler(void *arg){
 
     uint8_t *data = (uint8_t *) malloc(BUF_SIZE);
     while (1) {
-        int len = uart_read_bytes(UART_NUM_2, data, BUF_SIZE,100/portTICK_RATE_MS);
+        int len = uart_read_bytes(UART_NUM_2, data, BUF_SIZE,0);
 
         uart_write_bytes(UART_NUM_0, (const char *) data, len);
     }
