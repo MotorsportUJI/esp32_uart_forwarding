@@ -8,6 +8,8 @@
 */
 
 #define LOG_LOCAL_LEVEL ESP_LOG_NONE
+#define BAUDRATE 115200
+#define M0_M1_ON 0
 
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
@@ -43,7 +45,7 @@ static void uart0_handler(void *arg){
 
     uint8_t *data = (uint8_t *) malloc(BUF_SIZE);
     while (1) {
-        int len = uart_read_bytes(UART_NUM_0, data, BUF_SIZE,0);
+        int len = uart_read_bytes(UART_NUM_0, data, BUF_SIZE,1);
 
         uart_write_bytes(UART_NUM_2, (const char *) data, len);
 
@@ -54,7 +56,7 @@ static void uart2_handler(void *arg){
 
     uint8_t *data = (uint8_t *) malloc(BUF_SIZE);
     while (1) {
-        int len = uart_read_bytes(UART_NUM_2, data, BUF_SIZE,0);
+        int len = uart_read_bytes(UART_NUM_2, data, BUF_SIZE,1);
 
         uart_write_bytes(UART_NUM_0, (const char *) data, len);
     }
@@ -73,14 +75,14 @@ void app_main(void)
     gpio_set_direction(M0, GPIO_MODE_OUTPUT);
     gpio_set_direction(M1, GPIO_MODE_OUTPUT);
 
-    gpio_set_level(M0, 1);
-    gpio_set_level(M1,1);
+    gpio_set_level(M0, M0_M1_ON);
+    gpio_set_level(M1,M0_M1_ON);
 
 
         /* Configure parameters of an UARTb driver,
      * communication pins and install the driver */
     uart_config_t uart_config = {
-        .baud_rate = 9600,
+        .baud_rate = BAUDRATE,
         .data_bits = UART_DATA_8_BITS,
         .parity    = UART_PARITY_DISABLE,
         .stop_bits = UART_STOP_BITS_1,
