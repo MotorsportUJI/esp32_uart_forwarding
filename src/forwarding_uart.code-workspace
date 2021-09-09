@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"name": "forwarding",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"cstdio": "c",
+			"esp_log.h": "c"
+		}
+	}
+}
